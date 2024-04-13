@@ -3,6 +3,7 @@ Filename: MetaGPT/examples/build_customized_multi_agents.py
 Created Date: Wednesday, November 15th 2023, 7:12:39 pm
 Author: garylin2099
 """
+import os
 import re
 import fire
 from metagpt.actions import Action, UserRequirement
@@ -214,5 +215,39 @@ async def main(
     await team.run(n_round=n_round)
 
 
+async def process_all():
+    folder_path = '/Users/weibh/projects/csharp/blazork8s/BlazorApp/Pages/'
+    razor_files = [os.path.join(root, file) for root, dirs, files in os.walk(folder_path) for file in files if
+                   file.endswith('.razor')]
+    for file in razor_files:
+        print(f"{file}")
+        await main(idea=file)
+
+
+async def filter_all_translate_key_in_folder():
+    folder_path = '/Users/weibh/projects/csharp/blazork8s/BlazorApp'
+    razor_files = [os.path.join(root, file) for root, dirs, files in os.walk(folder_path) for file in files if
+                   file.endswith('.razor') or file.endswith('.cs')]
+    for file in razor_files:
+        with open(file, 'r') as f:
+            text = f.read()
+            import re
+            pattern = r'L\["([^"]+)"\]'
+            matches = re.findall(pattern, text)
+            for match in matches:
+                print(match)
+
+
+async def process_it():
+    razor_files = [
+        "/Users/weibh/projects/csharp/blazork8s/BlazorApp/Pages/EndpointSlice/EndpointSliceDetailView.razor",
+        "/Users/weibh/projects/csharp/blazork8s/BlazorApp/Pages/EndpointSlice/EndpointSliceIndex.razor",
+        "/Users/weibh/projects/csharp/blazork8s/BlazorApp/Pages/EndpointSlice/EndpointSlicePortView.razor"
+    ]
+    for file in razor_files:
+        print(f"{file}")
+        await main(idea=file)
+
+
 if __name__ == "__main__":
-    fire.Fire(main)
+    fire.Fire(filter_all_translate_key_in_folder)
