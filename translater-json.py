@@ -111,7 +111,7 @@ class ActionTextTranslate(Action):
     {context}
     
     上面是一份k8s专业术语的翻译对照表。采用json格式存储。
-    key为术语，value为对应的翻译。请你将这份对照表翻译为德语。
+    key为术语，value为对应的翻译。请你将这份对照表翻译为葡萄牙语。
     key请保持为英文，绝对不要将key进行变更。
     这份翻译表很长，请不要中断，一次性输出完毕。
     请严格按照原来的json格式的返回 ，不要其他任何多余的文字。
@@ -154,6 +154,13 @@ async def main(
 
 async def process_all():
     folder_path = '/Users/weibh/projects/csharp/blazork8s/BlazorApp/wwwroot/lang/splite'
+
+    # 清理所有的文件命中带有fanyi关键字的文件，这是程序运行临时产生的。
+    fanyi_files = [os.path.join(root, file) for root, dirs, files in os.walk(folder_path) for file in files if
+                   'fanyi' in file]
+    for file in fanyi_files:
+        os.remove(file)
+
     razor_files = [os.path.join(root, file) for root, dirs, files in os.walk(folder_path) for file in files if
                    file.endswith('.json')]
     for file in razor_files:
