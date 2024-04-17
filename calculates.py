@@ -6,6 +6,7 @@ Author: garylin2099
 import re
 
 import fire
+import metagpt.logs
 
 from metagpt.actions import Action, UserRequirement
 from metagpt.logs import logger
@@ -120,10 +121,11 @@ class SimpleReviewer(Role):
 
 async def main(
         idea: str = "编写一个函数，计算两个数的乘积。",
-        investment: float = 3.0,
-        n_round: int = 10,
+        investment: float = 2.0,
+        n_round: int = 3,
         add_human: bool = False,
 ):
+    metagpt.logs.define_log_level(logfile_level="DEBUG")
     logger.info(idea)
 
     team = Team()
@@ -137,6 +139,7 @@ async def main(
 
     team.invest(investment=investment)
     team.run_project(idea)
+
     await team.run(n_round=n_round)
 
 

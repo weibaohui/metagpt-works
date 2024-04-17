@@ -1,0 +1,4 @@
+type: function
+description: "\u6267\u884Ckubectl\u547D\u4EE4"
+signature: '(command: str)'
+parameters: ''

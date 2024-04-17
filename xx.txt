@@ -86,7 +86,6 @@ MarkupSafe==2.1.5
 matplotlib-inline==0.1.6
 mdurl==0.1.2
 meilisearch==0.21.0
-metagpt==0.8.0
 more-itertools==10.2.0
 motor==3.4.0
 multidict==6.0.5
